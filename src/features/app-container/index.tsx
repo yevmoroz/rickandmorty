@@ -23,7 +23,7 @@ const styles = (theme: Theme) =>
     container: {
       flex: 1,
       alignItems: 'center',
-      paddingTop: 50,
+      justifyContent: 'center',
       backgroundColor: theme.colors.PRIMARY,
     },
   });
