@@ -5,7 +5,7 @@ import * as pkg from './package.json';
 const config: ExpoConfig = {
   name: pkg.name,
   slug: pkg.name,
-  version: '1.0.0',
+  version: pkg.version,
   owner: 'yevmoroz',
   orientation: 'portrait',
   icon: './assets/icon.png',
@@ -13,9 +13,6 @@ const config: ExpoConfig = {
   splash: {
     image: './assets/splash.png',
     resizeMode: 'contain',
-  },
-  updates: {
-    fallbackToCacheTimeout: 0,
   },
   assetBundlePatterns: ['**/*'],
   ios: {
@@ -26,6 +23,17 @@ const config: ExpoConfig = {
       foregroundImage: './assets/adaptive-icon.png',
     },
   },
+  extra: {
+    eas: {
+      projectId: process.env.EXPO_PROJECT_ID
+    }
+  },
+  updates: {
+    url: `https://u.expo.dev/${process.env.EXPO_PROJECT_ID}`
+  },
+  runtimeVersion: {
+    policy: 'appVersion'
+  }
 };
 
 export default config;

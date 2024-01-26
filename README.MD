@@ -8,7 +8,7 @@ Expo starter package, includes:
 
 ### Fork
 
-After you fork project under it's new name, update `expo-starter` in `package.json` file to reflect the change.
+After you fork project under it's new name, update `expo-starter` in `package.json` file to reflect the change. Make sure you configure `EXPO_TOKEN` (from expo.dev account settings > access tokens) and `EXPO_PROJECT_ID` (from Projects > Project Overview > ID, looks like UUID)
 
 ### Development
 
