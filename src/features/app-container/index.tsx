@@ -1,29 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 
-import { useTheme } from '../theme/hooks';
-import { Theme } from '../theme/type';
+import { useTheme, Theme } from '../theme/hooks';
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
 
 export const AppContainer: React.FC<Props> = (props) => {
-  const themedStyles = useTheme(styles);
+  const styles = useTheme(themeableStyles);
   return (
-    <View style={themedStyles.container}>
+    <View style={styles.container}>
       {props.children}
-      <StatusBar backgroundColor={themedStyles.container.backgroundColor} />
+      <StatusBar backgroundColor={styles.container.backgroundColor} />
     </View>
   );
 };
 
-const styles = (theme: Theme) =>
+const themeableStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: theme.colors.PRIMARY,
+      backgroundColor: theme.colors.SECONDARY,
     },
   });

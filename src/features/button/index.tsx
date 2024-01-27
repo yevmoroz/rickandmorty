@@ -1,7 +1,14 @@
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 
-import { useTheme } from '../theme/hooks';
-import { Theme } from '../theme/type';
+import {
+  BORDER_RADIUS_S,
+  FONT_SIZE_TITLE,
+  FONT_WEIGHT_BOLD,
+  PAD_L,
+  PAD_S,
+  PAD_XXL,
+} from '../theme/common';
+import { useTheme, Theme } from '../theme/hooks';
 
 type Props = {
   onPress: () => void;
@@ -9,29 +16,31 @@ type Props = {
 };
 
 export const Button: React.FC<Props> = (props) => {
-  const themedStyles = useTheme(styles);
+  const styles = useTheme(themeableStyles);
   return (
     <Pressable onPress={props.onPress}>
-      <View style={themedStyles.container}>
-        <Text style={themedStyles.text}>{props.children}</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>{props.children}</Text>
       </View>
     </Pressable>
   );
 };
 
-const styles = (theme: Theme) =>
+const themeableStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      margin: 10,
-      padding: 10,
+      marginHorizontal: PAD_XXL,
+      marginVertical: PAD_S,
+      paddingHorizontal: PAD_S,
+      paddingVertical: PAD_L,
       minWidth: 200,
-      borderRadius: 5,
-      backgroundColor: theme.colors.SECONDARY,
+      borderRadius: BORDER_RADIUS_S,
+      backgroundColor: theme.colors.PRIMARY,
       alignItems: 'center',
     },
     text: {
-      color: theme.colors.PRIMARY,
-      fontWeight: 'bold',
-      fontSize: 20,
+      color: theme.colors.SECONDARY,
+      fontWeight: FONT_WEIGHT_BOLD,
+      fontSize: FONT_SIZE_TITLE,
     },
   });
