@@ -18,8 +18,16 @@ After you fork project under it's new name, update `expo-starter` in `package.js
 
 ### Development
 
+Install Xcode and ensure you've installed iOS libraries when opened Xcode at least once, currently supported Xcode 15.3.
+
 Install dependencies with `npm install`. Create new project in Expo via [this link](https://expo.dev/) and following instructions how to set it up.
 Start developement by running regular `npm start`. Follow on screen prompt to setup expo on iOS/Android device.
+
+## How to use
+
+The app is published to Expo and can be used via Expo Go app. You may need to have Expo Go installed on [Android](https://play.google.com/store/apps/details?id=host.exp.exponent) or [iOS](https://apps.apple.com/ca/app/expo-go/id982107779). When it's done, go ahead and scan with the phone QR code to run the app through Expo Go or :
+
+![](https://qr.expo.dev/eas-update?appScheme=exp&projectId=d4b9e90e-490d-472b-ae00-ed149605a4c8&channel=master&runtimeVersion=1.0.0&host=u.expo.dev)
 
 ### WSL support
 
