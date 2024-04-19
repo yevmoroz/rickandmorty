@@ -1,18 +1,19 @@
-import { Alert } from 'react-native';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import { AppContainer } from '../app-container';
-import { Button } from '../button';
+import { Characters } from '../characters';
 
-const onPressStart = (): void => {
-  Alert.alert(
-    "Hold your horses, start small and take your time, son we'll have rick and morty library"
-  );
-};
+const client = new ApolloClient({
+  uri: 'https://rickandmortyapi.com/graphql',
+  cache: new InMemoryCache(),
+});
 
 export const Entrance: React.FC = () => {
   return (
-    <AppContainer>
-      <Button onPress={onPressStart}>Start</Button>
-    </AppContainer>
+    <ApolloProvider client={client}>
+      <AppContainer>
+        <Characters />
+      </AppContainer>
+    </ApolloProvider>
   );
 };
