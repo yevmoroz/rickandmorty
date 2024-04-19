@@ -1,20 +1,12 @@
-## Expo starter
+## Rick and Morty Library
 
-Expo starter package, includes:
-- Expo with TypeScript support
-- Theme base styles
-- ESLint + Prettier
-- Feature based architecture
+Collection of all episodes and seasons of unique series that fuel curiosity
 
 ## How to use
 
 The app is published to Expo and can be used via Expo Go app. You may need to have Expo Go installed on [Android](https://play.google.com/store/apps/details?id=host.exp.exponent) or [iOS](https://apps.apple.com/ca/app/expo-go/id982107779). When it's done, go ahead and scan with the phone QR code to run the app through Expo Go or :
 
-![](https://qr.expo.dev/eas-update?appScheme=exp&projectId=d4b9e90e-490d-472b-ae00-ed149605a4c8&channel=master&runtimeVersion=1.0.0&host=u.expo.dev)
-
-### Fork
-
-After you fork project under it's new name, update `expo-starter` in `package.json` file to reflect the change. Make sure you configure `EXPO_TOKEN` (from expo.dev account settings > access tokens) and `EXPO_PROJECT_ID` (from Projects > Project Overview > ID, looks like UUID)
+![](https://qr.expo.dev/eas-update?appScheme=exp&projectId=7327fdf7-09c0-4ebc-9295-8f689ff15722&channel=master&runtimeVersion=1.0.0&host=u.expo.dev)
 
 ### Development
 
