@@ -9,7 +9,6 @@ export const GET_CHARACTERS_BY_NAME = gql`
         }
         name
         species
-        type
         gender
         image
         id
@@ -17,7 +16,6 @@ export const GET_CHARACTERS_BY_NAME = gql`
       info {
         pages
         next
-        count
       }
     }
   }

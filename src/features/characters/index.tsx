@@ -12,32 +12,28 @@ export const Characters: React.FC = () => {
       charactersByNameFilter: { name: nameFilter },
     },
   });
+  const nextPage = query.data?.characters?.info?.next;
+
   const onEndReached = useCallback(() => {
-    if (query.data.characters.info.next !== null) {
+    const onUpdateQuery = (prev, { fetchMoreResult: result }) => {
+      const nextPage = result.characters.info.next;
+      if (nextPage > prev.characters.info.next || nextPage === null) {
+        // prefer unshift to avoid array copies affecting performance health
+        result.characters.results.unshift(...prev.characters.results);
+        return result;
+      }
+      return prev;
+    };
+    if (nextPage !== null) {
       query.fetchMore({
         variables: {
           charactersByNameFilter: { name: nameFilter },
-          page: query.data.characters.info.next,
+          page: nextPage,
         },
-        updateQuery: (prev, { fetchMoreResult: result }) => {
-          const nextPageExists = result.characters.info.next > prev.characters.info.next;
-          const lastPageOnly =
-            result.characters.info.pages > 1 && result.characters.info.next === null;
-
-          if (nextPageExists || lastPageOnly) {
-            return {
-              characters: {
-                ...result.characters,
-                results: [...prev.characters.results, ...result.characters.results],
-              },
-            };
-          }
-
-          return result;
-        },
+        updateQuery: onUpdateQuery,
       });
     }
-  }, [query]);
+  }, [nextPage]);
 
   if (query.networkStatus === NetworkStatus.loading) {
     return <Text>Loading...</Text>;
