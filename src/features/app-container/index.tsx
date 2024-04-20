@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
+import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
 
 import { useTheme, Theme } from '../theme/hooks';
 
@@ -10,10 +10,10 @@ type Props = {
 export const AppContainer: React.FC<Props> = (props) => {
   const styles = useTheme(themeableStyles);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {props.children}
-      <StatusBar backgroundColor={styles.container.backgroundColor} />
-    </View>
+      <ExpoStatusBar backgroundColor={styles.container.backgroundColor} />
+    </SafeAreaView>
   );
 };
 
@@ -23,6 +23,7 @@ const themeableStyles = (theme: Theme) =>
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      marginTop: StatusBar.currentHeight ?? 0,
       backgroundColor: theme.colors.SECONDARY,
     },
   });
