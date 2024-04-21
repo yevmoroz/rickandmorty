@@ -1,4 +1,4 @@
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import {
   BORDER_RADIUS_S,
@@ -16,7 +16,9 @@ export const CharacterItem = (props) => {
 
   return (
     <View style={styles.item}>
-      <Image style={styles.image} src={props.character.image} />
+      <TouchableOpacity onPress={props.onPress}>
+        <Image style={styles.image} src={props.character.image} />
+      </TouchableOpacity>
       <View style={styles.info}>
         <Text style={styles.title} ellipsizeMode="tail">
           {props.character.name}
@@ -28,6 +30,10 @@ export const CharacterItem = (props) => {
         <Text style={styles.description}>
           {props.character.gender}, {props.character.species}
         </Text>
+        <View style={styles.spacer} />
+        <TouchableOpacity onPress={props.onPress}>
+          <Text style={styles.link}>more details</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -63,5 +69,10 @@ const themeableStyles = (theme: Theme) =>
     description: {
       color: theme.colors.SECONDARY,
       fontSize: FONT_SIZE_TEXT,
+    },
+    link: {
+      color: theme.colors.SECONDARY,
+      fontSize: FONT_SIZE_TEXT,
+      textDecorationLine: 'underline',
     },
   });

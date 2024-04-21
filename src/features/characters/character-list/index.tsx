@@ -7,7 +7,9 @@ export const CharacterList = (props) => {
     <FlatList
       style={styles.container}
       data={props.characters}
-      renderItem={({ item }) => <CharacterItem character={item} />}
+      renderItem={({ item }) => (
+        <CharacterItem character={item} onPress={() => props.onItemPress(item.id)} />
+      )}
       keyExtractor={(item) => item.id}
       onEndReachedThreshold={1}
       onEndReached={props.onEndReached}

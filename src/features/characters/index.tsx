@@ -1,13 +1,16 @@
 import { NetworkStatus, useQuery } from '@apollo/client';
-import { Fragment, useCallback, useRef } from 'react';
+import { Fragment, useCallback, useRef, useState } from 'react';
 import { Text } from 'react-native';
 
+import { CharacterDetails } from './character-details';
 import { CharacterList } from './character-list';
 import { GET_CHARACTERS_BY_NAME } from './queries';
 
 export const Characters: React.FC = () => {
   const nameFilter = useRef('Rick').current;
+  const [selectedCharacterId, setSelectedCharacterId] = useState<number | null>(null);
   const query = useQuery(GET_CHARACTERS_BY_NAME, {
+    fetchPolicy: 'network-only',
     variables: {
       charactersByNameFilter: { name: nameFilter },
     },
@@ -42,6 +45,12 @@ export const Characters: React.FC = () => {
     return <Text>Error: {query.error.message}</Text>;
   }
 
+  if (selectedCharacterId) {
+    return (
+      <CharacterDetails id={selectedCharacterId} onBack={() => setSelectedCharacterId(null)} />
+    );
+  }
+
   return (
     <Fragment>
       <CharacterList
@@ -49,6 +58,7 @@ export const Characters: React.FC = () => {
         onEndReached={onEndReached}
         onRefresh={query.refetch}
         refreshing={query.networkStatus === NetworkStatus.refetch}
+        onItemPress={setSelectedCharacterId}
       />
     </Fragment>
   );
