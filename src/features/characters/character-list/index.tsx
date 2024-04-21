@@ -11,7 +11,7 @@ export const CharacterList = (props) => {
         <CharacterItem character={item} onPress={() => props.onItemPress(item.id)} />
       )}
       keyExtractor={(item) => item.id}
-      onEndReachedThreshold={1}
+      onEndReachedThreshold={0.5}
       onEndReached={props.onEndReached}
       onRefresh={props.onRefresh}
       refreshing={props.refreshing}

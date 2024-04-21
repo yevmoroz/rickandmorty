@@ -1,5 +1,3 @@
-import { NetworkStatus, useFragment, useQuery } from '@apollo/client';
-import { Fragment } from 'react';
 import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import {
@@ -12,29 +10,12 @@ import {
   PAD_S,
 } from '../../theme/common';
 import { useTheme, Theme } from '../../theme/hooks';
-import { CHARACTER_FRAGMENT, GET_EPISODES_BY_CHARACTER_ID } from '../queries';
+import { CharacterEpisodes } from '../character-episodes';
+import { useCachedCharacterById } from '../hooks';
 
 export const CharacterDetails = (props) => {
   const styles = useTheme(themeableStyles);
-
-  const fragment = useFragment({
-    fragment: CHARACTER_FRAGMENT,
-    fragmentName: 'CharacterFragment',
-    from: {
-      __typename: 'Character',
-      id: props.id,
-    },
-  });
-  const character = fragment.data;
-
-  const query = useQuery(GET_EPISODES_BY_CHARACTER_ID, {
-    fetchPolicy: 'network-only',
-    variables: {
-      characterId: props.id,
-    },
-  });
-
-  const episodes = query.data?.character?.episode;
+  const [character] = useCachedCharacterById(props.id);
 
   return (
     <View style={styles.item}>
@@ -57,20 +38,7 @@ export const CharacterDetails = (props) => {
           Seen in episodes
         </Text>
         <View style={styles.spacer} />
-        {query.networkStatus === NetworkStatus.loading ? (
-          <Text style={styles.description}>Loading ...</Text>
-        ) : (
-          <Fragment>
-            {episodes?.slice(0, 10).map?.((item) => (
-              <Text key={item.id} style={styles.description}>
-                - "{item.name}" with {item.characters?.length - 1} more
-              </Text>
-            ))}
-            {episodes.length > 10 && (
-              <Text style={styles.description}>...and {episodes.length - 10} more</Text>
-            )}
-          </Fragment>
-        )}
+        <CharacterEpisodes id={props.id} />
       </View>
       <View style={styles.spacer} />
       <TouchableOpacity onPress={props.onBack}>

@@ -29,6 +29,7 @@ export const client = new ApolloClient({
     watchQuery: {
       // our strategy is to avoid 2nd fetch of the same request,
       // if variables change request is not the same as well
+      // if component gets unmounted `nextFetchPolicy` is not considered
       nextFetchPolicy(currentFetchPolicy, { reason, initialFetchPolicy }) {
         // When variables change, the default behavior is to reset
         // options.fetchPolicy to context.initialFetchPolicy. If you omit this logic,
