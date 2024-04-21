@@ -25,4 +25,26 @@ const linkChain = from([
 export const client = new ApolloClient({
   link: linkChain,
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      // our strategy is to avoid 2nd fetch of the same request,
+      // if variables change request is not the same as well
+      nextFetchPolicy(currentFetchPolicy, { reason, initialFetchPolicy }) {
+        // When variables change, the default behavior is to reset
+        // options.fetchPolicy to context.initialFetchPolicy. If you omit this logic,
+        // your nextFetchPolicy function can override this default behavior to
+        // prevent options.fetchPolicy from changing in this case.
+        if (reason === 'variables-changed') {
+          return initialFetchPolicy;
+        }
+        if (currentFetchPolicy === 'network-only' || currentFetchPolicy === 'cache-and-network') {
+          // Demote the network policies (except "no-cache") to "cache-first"
+          // after the first request.
+          return 'cache-first';
+        }
+        // Leave all other fetch policies unchanged.
+        return currentFetchPolicy;
+      },
+    },
+  },
 });
